@@ -1,0 +1,23 @@
+{
+    "name": "mackensiealvarez/talus",
+    "description": "A laravel pacakge to automate everything on the web",
+    "readme": "README.md",
+    "license": "MIT",
+    "authors": [{
+        "name": "Mackensie Alvarez",
+        "email": "mackensiealvarez@gmail.com"
+    }],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Mackensiealvarezz\\Talus\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Mackensiealvarezz\\Talus\\Provider\\TalusServiceProvider"
+            ]
+        }
+    }
+}

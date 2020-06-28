@@ -3,6 +3,7 @@
 namespace Mackensiealvarezz\Talus\Provider;
 
 use illuminate\support\ServiceProvider;
+use Mackensiealvarezz\Talus\Console\ConvertCommand;
 use Mackensiealvarezz\Talus\Console\MakeCommand;
 use Mackensiealvarezz\Talus\Talus;
 
@@ -25,7 +26,8 @@ class TalusServiceProvider extends ServiceProvider
         });
 
         $this->commands([
-            MakeCommand::class
+            MakeCommand::class,
+            ConvertCommand::class
         ]);
     }
 }

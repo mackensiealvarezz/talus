@@ -1,5 +1,5 @@
 {
-    "name": "mackensiealvarez/talus",
+    "name": "mackensiealvarezz/talus",
     "description": "A laravel pacakge to automate everything on the web",
     "readme": "README.md",
     "license": "MIT",
@@ -7,7 +7,9 @@
         "name": "Mackensie Alvarez",
         "email": "mackensiealvarez@gmail.com"
     }],
-    "require": {},
+    "require": {
+        "laravel/dusk": "^6.3"
+    },
     "autoload": {
         "psr-4": {
             "Mackensiealvarezz\\Talus\\": "src/"

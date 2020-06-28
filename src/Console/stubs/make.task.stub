@@ -1,0 +1,10 @@
+<?php
+
+namespace DummyNamespace;
+class DummyClass{
+{
+    public function index()
+    {
+        //dusk logic in here
+    }
+}

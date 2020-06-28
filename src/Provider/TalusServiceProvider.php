@@ -1,12 +1,13 @@
 <?php
 
-namespace Mackensiealvarezz\Talus;
+namespace Mackensiealvarezz\Talus\Provider;
 
 use illuminate\support\ServiceProvider;
+use Mackensiealvarezz\Talus\Console\MakeCommand;
+use Mackensiealvarezz\Talus\Talus;
 
 class TalusServiceProvider extends ServiceProvider
 {
-
 
     //when the application is loaded
     public function boot()
@@ -19,8 +20,12 @@ class TalusServiceProvider extends ServiceProvider
 
     public function register()
     {
-        // $this->app->singleton(Tdameritrade::class, function () {
-        //     return new Tdameritrade();
-        // });
+        $this->app->singleton(Talus::class, function () {
+            return new Talus();
+        });
+
+        $this->commands([
+            MakeCommand::class
+        ]);
     }
 }

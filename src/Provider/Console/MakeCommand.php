@@ -2,61 +2,56 @@
 
 namespace Mackensiealvarezz\Talus\Console;
 
+use Illuminate\Console\Command;
 use Illuminate\Console\GeneratorCommand;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\File;
 
-class MakeCommand extends GeneratorCommand
+class MakeCommand extends Command
 {
-    use withStub;
-
-    protected $name = 'talus:make';
-
+    protected $signature = 'talus:make {view}';
     protected $description = 'Create a new Talus Task';
 
-    /**
-     * The type of class being generated.
-     *
-     * @var string
-     */
-    protected $type = 'Task';
-
-    /**
-     * Get the stub file for the generator.
-     *
-     * @return string
-     */
-    protected function getStub()
+    public function __construct()
     {
-        return $this->resolveStubPath('/stubs/make.task.stub');
+        parent::__construct();
     }
 
-    /**
-     * Get the default namespace for the class.
-     *
-     * @param  string $rootNamespace
-     *
-     * @return string
-     */
-    protected function getDefaultNamespace($rootNamespace)
+    public function handle()
     {
-        return $rootNamespace . '\Tasks';
+        $view = $this->argument('view');
+
+        $path = $this->viewPath($view);
+
+        $this->createDir($path);
+
+        if (File::exists($path)) {
+            $this->error("File {$path} already exists!");
+            return;
+        }
+        File::put($path, "File content");
+        $this->createTask($view);
+        $this->info("File {$path} created.");
     }
 
-    /**
-     * Build the class with the given name.
-     * Remove the base controller import if we are already in base namespace.
-     *
-     * @param  string $name
-     *
-     * @return string
-     */
-    protected function buildClass($name)
+    public function createTask($view)
     {
-        $replace = [];
+        Artisan::call("talus:task {$view}");
+    }
 
-        return str_replace(
-            array_keys($replace),
-            array_values($replace),
-            parent::buildClass($name)
-        );
+    public function viewPath($view)
+    {
+        $view = str_replace('.', '/', $view) . '.yaml';
+        $path = "resources/tasks/{$view}";
+        return $path;
+    }
+
+    public function createDir($path)
+    {
+        $dir = dirname($path);
+
+        if (!file_exists($dir)) {
+            mkdir($dir, 0777, true);
+        }
     }
 }

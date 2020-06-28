@@ -18,6 +18,7 @@ class ConvertCommand extends Command
 
     public function handle()
     {
+        //Find the file
         echo "Testing";
     }
 }

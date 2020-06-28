@@ -29,9 +29,12 @@ class MakeCommand extends Command
             $this->error("File {$path} already exists!");
             return;
         }
-        File::put($path, "File content");
-        $this->createTask($view);
-        $this->info("File {$path} created.");
+
+        //Get stub content
+        $content = file_get_contents(__DIR__ . '/stubs/make.task.stub');
+        File::put($path, $content);
+        //$this->createTask($view);
+        $this->info("Task file {$path} created.");
     }
 
     public function createTask($view)

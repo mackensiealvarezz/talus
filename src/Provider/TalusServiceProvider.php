@@ -10,14 +10,9 @@ use Mackensiealvarezz\Talus\Talus;
 
 class TalusServiceProvider extends ServiceProvider
 {
-
     //when the application is loaded
     public function boot()
     {
-        // publish a config file
-        // $this->publishes([
-        //     __DIR__ . '/../config/tdameritrade.php' => config_path('tdameritrade.php')
-        // ]);
     }
 
     public function register()
@@ -25,7 +20,6 @@ class TalusServiceProvider extends ServiceProvider
         $this->app->singleton(Talus::class, function () {
             return new Talus();
         });
-
         $this->commands([
             MakeCommand::class,
             ConvertCommand::class,

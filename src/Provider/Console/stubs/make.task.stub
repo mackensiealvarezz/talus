@@ -1,10 +1,12 @@
-<?php
-
-namespace DummyNamespace;
-class DummyClass{
-{
-    public function index()
-    {
-        //dusk logic in here
-    }
-}
+#Create great things
+---
+  vars:
+    username:
+    password:
+  tasks:
+  - name: login to craiglist
+    host: https://accounts.craigslist.org/login
+    form:
+      email: $var.username
+      password: $var.password
+      submit: true

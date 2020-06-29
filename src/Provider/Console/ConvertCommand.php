@@ -3,6 +3,9 @@
 namespace Mackensiealvarezz\Talus\Console;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\File;
+use Symfony\Component\Yaml\Exception\ParseException;
+use Symfony\Component\Yaml\Yaml;
 
 class ConvertCommand extends Command
 {
@@ -18,7 +21,29 @@ class ConvertCommand extends Command
 
     public function handle()
     {
+        $path = $this->viewPath($this->argument('task'));
+
         //Find the file
-        echo "Testing";
+        if (!File::exists($path)) {
+            $this->error('File not found' . $path);
+            return;
+        }
+
+        //Vaildate file is YAML
+        try {
+            $yaml = Yaml::parseFile($path);
+        } catch (ParseException $e) {
+            $this->error('Unable to parse the YAML: ' . $e->getMessage());
+        }
+
+        //Parse
+        dd($yaml);
+    }
+
+    public function viewPath($view)
+    {
+        $view = str_replace('.', '/', $view) . '.yaml';
+        $path = "resources/tasks/{$view}";
+        return $path;
     }
 }

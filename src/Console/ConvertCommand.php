@@ -4,6 +4,7 @@ namespace Mackensiealvarezz\Talus\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
+use Mackensiealvarezz\Talus\Talus;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 
@@ -35,9 +36,10 @@ class ConvertCommand extends Command
         } catch (ParseException $e) {
             $this->error('Unable to parse the YAML: ' . $e->getMessage());
         }
-
         //Parse
-        dd($yaml);
+        $parse = Talus::parse($yaml);
+
+        dd($parse);
     }
 
     public function viewPath($view)

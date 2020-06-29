@@ -8,8 +8,10 @@
         "email": "mackensiealvarez@gmail.com"
     }],
     "require": {
-        "laravel/dusk": "^6.3",
-        "symfony/yaml": "^5.1"
+        "symfony/yaml": "^5.1",
+        "symfony/browser-kit": "^5.1",
+        "symfony/http-client": "^5.1"
+
     },
     "autoload": {
         "psr-4": {

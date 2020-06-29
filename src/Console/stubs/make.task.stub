@@ -1,0 +1,15 @@
+#Create great things
+---
+host: "https://accounts.craigslist.org"
+apis:
+  - name: "login"
+    path: "/login"
+    form:
+     class: "loginform"
+     params:
+      email: "inputEmailHandle"
+      password: "inputPassword"
+    output: "cookie"
+vars:
+  password: ~
+  username: ~

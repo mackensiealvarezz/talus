@@ -4,6 +4,7 @@ namespace Mackensiealvarezz\Talus;
 
 use Exception;
 use Mackensiealvarezz\Talus\Client\Client;
+use Mackensiealvarezz\Talus\Task\Task;
 use Nette\PhpGenerator\ClassType;
 
 class Talus
@@ -11,27 +12,30 @@ class Talus
     public static function parse($yaml)
     {
 
-        //Vaildate yaml
+        //setup the class
+        $class = new ClassType($yaml['name']);
+        $class->setExtends(Task::class)
+            ->addProperty('base', $yaml['base'])
+            ->setPrivate();
 
-        $class = new ClassType('Demo');
+        //setup the apis
+        foreach ($yaml['apis'] as $api) {
+            $method = $class->addMethod($api['name']);
+            //Setup parameters for the function
+            foreach ($api['url_parameters'] as $param => $value) {
+                $method->addParameter($param);
+            }
+            $method->setBody(self::methodBody($api));
+        }
 
-        $class->addMethod('count')
-            ->addComment('Count it.')
-            ->addComment('@return int')
-            ->setFinal()
-            ->setProtected()
-            ->setBody('return count($items ?: $this->items);')
-            ->addParameter('items', []) // $items = []
-            ->setReference() // &$items = []
-            ->setType('array');
-        // array &$items = []
-        $client = new Client();
-        $crawler = $client->request('GET', 'https://github.com/');
         return $class;
     }
 
     public static function vaildate($yaml)
     {
+        if (!key_exists('name', $yaml))
+            throw new Exception("Error Processing Request: 'name' not found", 1);
+
         if (!key_exists('base', $yaml))
             throw new Exception("Error Processing Request: 'base' not found", 1);
 
@@ -44,8 +48,18 @@ class Talus
         foreach ($yaml["apis"] as $i => $api) {
             if (!is_array($api))
                 throw new Exception("Error Processing Request: api[$i] is not an array", 1);
-            if (!key_exists('namxe', $api))
+            if (!key_exists('name', $api))
                 throw new Exception("Error Processing Request: api[$i].name does not exist", 1);
         }
+    }
+
+
+    public static function methodBody($api)
+    {
+        $body = "";
+        $body .= "\$data = []; \n";
+        $body .= "\$data = []; \n";
+
+        return $body;
     }
 }

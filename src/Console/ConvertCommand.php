@@ -39,7 +39,8 @@ class ConvertCommand extends Command
         //Parse
         $parse = Talus::parse($yaml);
 
-        dd($parse);
+        $this->info($parse);
+        //  dd($parse);
     }
 
     public function viewPath($view)

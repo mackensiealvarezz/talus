@@ -1,15 +1,12 @@
 #Create great things
 ---
-host: "https://accounts.craigslist.org"
+host: "https://www.letgo.com/en-us"
 apis:
-  - name: "login"
-    path: "/login"
-    form:
-     class: "loginform"
-     params:
-      email: "inputEmailHandle"
-      password: "inputPassword"
-    output: "cookie"
-vars:
-  password: ~
-  username: ~
+  - name: "search"
+    path: ""
+    url_parameters:
+      searchTerm: "var.search"
+    output:
+      name: "xPath::"
+      price: "xPath::"
+      image: "css::"

@@ -7,6 +7,6 @@ apis:
     url_parameters:
       searchTerm: "var.search"
     output:
-      name: "xPath::"
-      price: "xPath::"
-      image: "css::"
+      name: "xPath.attr.src::"
+      price: "xPath.attr.data-src::"
+      image: "css.text::"

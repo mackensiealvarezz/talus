@@ -2,6 +2,7 @@
 
 namespace Mackensiealvarezz\Talus\Console;
 
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use Mackensiealvarezz\Talus\Talus;
@@ -33,11 +34,19 @@ class ConvertCommand extends Command
         //Vaildate file is YAML
         try {
             $yaml = Yaml::parseFile($path);
+            Talus::vaildate($yaml);
         } catch (ParseException $e) {
             $this->error('Unable to parse the YAML: ' . $e->getMessage());
+            return;
+        } catch (Exception $e) {
+            $this->error($e->getMessage());
+            return;
         }
-        //Parse
+
         $parse = Talus::parse($yaml);
+
+
+        //dd($parse["host"]);
 
         $this->info($parse);
         //  dd($parse);

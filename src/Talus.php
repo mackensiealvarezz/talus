@@ -3,6 +3,7 @@
 namespace Mackensiealvarezz\Talus;
 
 use Exception;
+use Illuminate\Support\Str;
 use Mackensiealvarezz\Talus\Client\Client;
 use Mackensiealvarezz\Talus\Task\Task;
 use Nette\PhpGenerator\ClassType;
@@ -58,8 +59,23 @@ class Talus
     {
         $body = "";
         $body .= "\$data = []; \n";
-        $body .= "\$data = []; \n";
+        $body .= "\$this->client->request('GET', \$this->base ." . self::urlParameters($api) . " ) \n";
 
         return $body;
+    }
+
+
+    public static function urlParameters($api)
+    {
+        if ($api['url_parameters'] == null)
+            return "";
+
+        $p = "'?";
+        foreach ($api['url_parameters'] as $param => $value) {
+            $p .= $param . "='.\$" . $param . ".'+'.";
+        }
+        //remove the extra plus and dot
+        $p = substr_replace($p, "", -5);
+        return $p;
     }
 }
